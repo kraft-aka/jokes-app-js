@@ -2,6 +2,7 @@
 const jokeBtn = document.querySelector(".joke-btn");
 const searchBtn = document.querySelector(".search-btn");
 const inputEl = document.querySelector(".input-el");
+const outputEl = document.querySelector(".output");
 
 // URLs
 const URL = "https://api.chucknorris.io/jokes/random";
@@ -15,6 +16,7 @@ const getJokesData = async () => {
     const response = await fetch(URL);
     const data = await response.json();
     jokesData = data;
+    renderRawData(data);
     console.log(jokesData);
   } catch (err) {
     console.log(`Error ${err}occured!`);
@@ -29,6 +31,7 @@ const getJokeQuery = async () => {
         `https://api.chucknorris.io/jokes/random?category=${inputEl.value}`
       );
       const data = await response.json();
+      renderRawData(data);
       console.log(data);
     } else {
       alert("Enter categorie");
@@ -36,6 +39,11 @@ const getJokeQuery = async () => {
   } catch (err) {
     console.log(`Error ${err} occured!`);
   }
+};
+
+//displays raw JSON data
+const renderRawData = (d) => {
+  outputEl.textContent = JSON.stringify(d, undefined, 2);
 };
 
 // Eventlisteners
